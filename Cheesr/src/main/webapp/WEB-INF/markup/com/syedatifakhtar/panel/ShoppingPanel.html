@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<wicket:panel>
+			<form class="input-group-sm" wicket:id="cheeseShoppingForm" style="min-height:45px;width:100%;">
+				<div class="col-md-2" wicket:id="cheeseName"/>
+				<div class="col-md-4" wicket:id="cheeseDescription"/>
+				<div class="col-md-2">
+					<span>$</span>
+					<span wicket:id="cheesePrice"/>
+				</div>
+				<div class="col-md-2">
+					<input wicket:id="cheeseQuantityTextField" type="text" class="form-control" placeholder="1" maxlength="5"/>
+				</div>
+				<div class="col-md-2">
+					<div class="button-group-xs" style="float:right">
+				 		<button type="button" class="btn-link inline" wicket:id="addCheeseButton">+</button>
+				 		<button type="button" class="btn-link" wicket:id="removeCheeseButton" >x</button>
+				 	</div>
+				</div>
+			</form>
+		</wicket:panel>
+	</body>
+</html>

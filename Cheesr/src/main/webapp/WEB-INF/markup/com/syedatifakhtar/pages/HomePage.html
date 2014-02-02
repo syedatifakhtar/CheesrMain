@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<wicket:extend>
+			<div class="container">
+				<span wicket:id="howdymessage" style="font-size:2em;color:#A6C"></span>
+				<span>
+					<a wicket:id="addCheeseAjaxFallbackLink" style="float:right;font-size:32px;font-weight:bold;color:#AA66CC">
+						+
+					</a>
+				</span>
+				<div wicket:id="cheeseRepeaterContainer">
+					<ul>
+						<li wicket:id="cheeseRepeater"></li>
+					</ul>
+				</div>
+			</div>
+		</wicket:extend>
+	</body>
+</html>

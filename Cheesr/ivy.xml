@@ -1,0 +1,34 @@
+<ivy-module version="2.0">
+    <info organisation="com.syedatifakhtar" module="apache-wicket-dependencies"/>
+    <dependencies>
+    		<!--  WICKET DEPENDENCIES -->
+		<dependency org="org.apache.wicket" name = "wicket-core" rev="6.12.0">
+		</dependency>
+		<dependency org="org.apache.wicket" name = "wicket-extensions" rev="6.12.0"/>
+		<dependency org="org.apache.wicket" name = "wicket-spring" rev="6.12.0">
+		    <exclude name="spring-web"/>
+		    <exclude name="spring-core"/>
+		</dependency>
+		<dependency org="org.slf4j" name = "slf4j-log4j12" rev="1.6.4"/>
+		<dependency org="log4j" name = "log4j" rev="1.2.16"/>
+		<dependency org="junit" name = "junit" rev="4.11"/>
+		<dependency org="org.hibernate" name = "hibernate-core" rev="4.2.7.Final"/>
+		<dependency org="mysql" name = "mysql-connector-java" rev="5.1.9"/>
+		<dependency org="commons-dbcp" name="commons-dbcp" rev="1.4"/>
+		<dependency org="org.springframework" name="spring-orm" rev="3.2.5.RELEASE" conf="*->default"/>
+		<dependency org="org.springframework" name="spring-core" rev="3.2.5.RELEASE" conf="*->default"/>
+		<dependency org="org.springframework" name="spring-web" rev="3.2.5.RELEASE" conf="*->default"/>
+		<dependency org="org.springframework" name="spring-aop" rev="3.2.5.RELEASE" conf="*->default"/>
+		<dependency org="org.aspectj" name="aspectjrt" rev="1.6.11" conf="*->default"/>
+		<dependency org="org.aspectj" name="aspectjweaver" rev="1.6.11" conf="*->default"/>
+		<!-- What seriously?Spring mail dependencies in spring-context-support -->
+		<dependency org="org.springframework" name="spring-context-support" rev="3.2.5.RELEASE" conf="*->default"/>
+		
+		<dependency org="com.sun.xml.ws" name="jaxws-rt" rev="2.2.8" conf="*->default"/>
+		<dependency org="org.jvnet.jax-ws-commons.spring" name="jaxws-spring" rev="1.9" conf="*->default">
+		    <exclude module="spring-core"/>
+		    <exclude module="spring-context"/>
+		    <exclude module="stax-ex"/>
+		</dependency>
+	</dependencies>
+</ivy-module>

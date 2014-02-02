@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<wicket:panel>
+		<!-- Modal -->
+				<div wicket:id="modalMarkup" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  					<div class="modal-dialog">
+    					<div class="modal-content">
+    						<form wicket:id="modalForm">
+	      						<div class="modal-header">
+	        						<button type="button" class="close" wicket:id="closeButton" aria-hidden="true">&times;</button>
+		        						<h4 class="modal-title" id="myModalLabel">My Cart</h4>
+	      							</div>
+	    					  <div class="modal-body">
+		    					 	 	<div wicket:id="lazyLoadRepeater" class="container modal-window-container"/>
+	      						</div>
+	      						<div class="modal-footer">
+	        				<button type="button" class="btn btn-primary" wicket:id="checkoutButton">Checkout</button>
+	      				</div>
+      				</form>
+    			</div><!-- /.modal-content -->
+  			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+		</wicket:panel>
+	</body>
+</html>

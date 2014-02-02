@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- By default,run the war target,name of the Ant script,current folder as basedir,ivy namespace -->
+<project default="war" name="Cheesr" basedir="." xmlns:ivy="antlib:org.apache.ivy.ant">
+    
+    <!-- Setup Properties -->
+    <property name="final.name" value="Cheesr" />
+    <property name="src.main.dir" value="src/main/java" />
+    <property name="src.test.dir" value="src/test/java" />
+    <property name="src.web.dir" value="src/main/webapp" />
+    <property name="lib.dir" value="lib" />
+    <property name="build.dir" value="build" />
+    <property name="build.main.classes" value="${build.dir}/classes"/>
+    <property name="build.main.classes.meta" value="${build.dir}/classes/META-INF"/>
+    <property name="build.test.classes" value="${build.dir}/test-classes" />
+    <property name="build.test.reports" value="${build.dir}/test-reports" />
+    <property name="build.reports.dir" value="${build.dir}/reports" />
+    
+    <!-- Set to your deploy folder -->
+    <property name="jboss.dir" value="X:\Dev\jboss-as-7.1.1.Final\jboss-as-7.1.1.Final\standalone\deployments" />
+
+    <!-- IMPORTANT ->All files which are required dependencies need to be present in the classpath! -->
+    <path id="build.classpath">
+        <fileset dir="${lib.dir}">
+            <include name="**/*" />
+        </fileset>
+    </path>
+    
+    <target name="clean" description="Imma be cleaning your project">
+        <delete dir="${build.dir}" failonerror="false" />
+        <delete file="${final.name}.war" failonerror="false" />
+    </target>
+    
+    <!-- Rarely used -->
+    <target name="init" description="Create basic folders,rarely used,useful when you have other people in your project,define initial stuff here">
+        <mkdir dir="${build.dir}" />
+        <mkdir dir="${lib.dir}" />
+    </target>
+    
+    <target name="resolve" description="--> Retrieve dependencies with ivy,for now will be downloaded under /lib/default">
+        <ivy:retrieve pattern="${lib.dir}/[conf]/[artifact]-[type]-[revision].[ext]" sync="true"/>
+    </target>
+    
+    <!-- Compiles classes and places them under build/classes -->
+    <target name="compile" depends="init,resolve" description="Compile code">
+        <mkdir dir="${build.main.classes}" />
+        <javac destdir="${build.main.classes}" target="1.6" source="1.6" srcdir="${src.main.dir}" classpathref="build.classpath" includeantruntime="false" />
+        <copy todir="${build.main.classes}">
+            <!--Copy properties and other stuff as well,not just classes -->
+            <fileset dir="${src.main.dir}">
+                <include name="**/*.*" />
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- Compiles JUnit test cases -->
+    <target name="test-compile" depends="compile">
+        <mkdir dir="${build.test.classes}" />
+        <javac destdir="${build.test.classes}" target="1.6" source="1.6" srcdir="${src.test.dir}" includeantruntime="false">
+            <classpath>
+                <path refid="build.classpath" />
+                <pathelement path="${build.main.classes}" />
+            </classpath>
+        </javac>
+        <copy todir="${build.test.classes}">
+            <fileset dir="${src.test.dir}">
+                <include name="**/*.*" />
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
+    
+    
+    <target name="test" depends="test-compile">
+        <mkdir dir="${build.test.reports}" />
+        <junit dir="./" failureproperty="test.failure" printSummary="yes" fork="true" haltonerror="true">
+            <sysproperty key="basedir" value="." />
+            <formatter type="xml" />
+            <classpath>
+                <path refid="build.classpath" />
+                <pathelement path="${build.main.classes}" />
+                <pathelement path="${build.test.classes}" />
+            </classpath>
+            <batchtest todir="${build.test.reports}">
+                <fileset dir="${src.test.dir}">
+                    <include name="**/*Test*.java" />
+                </fileset>
+            </batchtest>
+        </junit>
+        <mkdir dir="${build.reports.dir}" />
+        <junitreport todir="${build.reports.dir}">
+            <fileset dir="${build.test.reports}">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report format="frames" todir="${build.reports.dir}" />
+        </junitreport>
+    </target>
+    
+    
+    <target name="war" depends="compile" description="Builds the war file using stuff from the build folder">
+        <war destfile="${build.dir}/${final.name}.war" webxml="${src.web.dir}/WEB-INF/web.xml">
+            <lib dir="lib/default">
+                <include name="*/**" />
+            </lib>
+            <classes dir="${build.main.classes}" />
+            <fileset dir="${src.web.dir}">
+                <include name="**/*" />
+                <exclude name="**/web.xml" />
+            </fileset>
+            <metainf file="persistence.xml"/>
+        </war>
+    </target>
+
+    <target name="deploy" depends="war" description="Stupidly copies war file to tomcat/jboss deploy folder">
+        <echo>Deploying .war to Jboss</echo>
+        <copy todir="${jboss.dir}">
+            <fileset dir="${build.dir}" includes="${final.name}.war" />
+        </copy>
+    </target>
+    
+    <target name="all" depends="clean,deploy" description="Clean + WAR">
+    </target>
+</project>

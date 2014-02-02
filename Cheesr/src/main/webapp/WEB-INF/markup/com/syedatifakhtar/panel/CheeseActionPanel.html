@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:wicket="http://wicket.apache.org">
+	<head>
+		<meta charset="utf-8" />
+	</head>
+	<body>
+		<wicket:panel>
+			<form class="cheese-actn-pnl-container form-inline" wicket:id="cheeseActionForm ">
+				<span class="cheese-txt inline" wicket:id="cheeseName"/>
+				<span class="cheese-txt inline" wicket:id="cheeseDescription"/>
+				<input wicket:id="cheeseNameTextField" type="text" class="input-small inline cheese-txt form-control" placeholder="Name the cheese" maxlength="20"/>
+				<input wicket:id="cheeseDescriptionTextField" type="text" class="input-small inline cheese-txt form-control" placeholder="Describe it!" maxlength="30"/>
+				<span class="input-small inline input-group input-group-sm">
+					<span style="float:left;width:auto;" class="input-group-addon form-control">$</span>
+					<input wicket:id="cheesePriceTextField" type="text" placeholder="10" maxlength="20" style="width:60px;text-align:right;" class="form-control inline"/>
+				</span>
+				<div class="cheese-actn-btn-group btn-group-xs">
+				 <button type="Submit" class="btn btn-default inline" wicket:id="editCheeseButton"><i class="glyphicon glyphicon-pencil"></i></button>
+				 <button type="Submit" class="btn btn-default inline" wicket:id="deleteCheeseButton" ><i class="glyphicon glyphicon-remove"></i></button>
+				 <button type="Submit" class="btn btn-default inline" wicket:id="saveCheeseButton"><i class="glyphicon glyphicon-ok"></i></button>
+				</div>
+			</form>
+		</wicket:panel>
+	</body>
+</html>

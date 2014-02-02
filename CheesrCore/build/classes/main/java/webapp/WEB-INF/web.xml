@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<web-app xmlns="http://java.sun.com/xml/ns/j2ee" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee 
+	http://java.sun.com/xml/ns/j2ee/web-app_2_5.xsd"
+	version="2.5">
+
+    	<!--IMPORTANT:Do not miss this out
+		The ContextLoaderListener is the real deal,it creates and manages the applicationContext -->
+	<listener>
+	    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	
+	<display-name>Cheesr Core</display-name>
+	<context-param>
+	    <param-name>contextConfigLocation</param-name>
+	    <param-value>WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+	<!--
+		There are three means to configure Wickets configuration mode and they 
+		are tested in the order given.
+		
+		1) A system property: -Dwicket.configuration 
+		2) servlet specific <init-param> 
+		3) context specific <context-param>
+
+		The value might be either "development" (reloading when templates change) or 
+		"deployment". If no configuration is found, "development" is the default. -->
+
+	
+	    <servlet>
+        <description>Apache CXF Endpoint</description>
+        <display-name>CXF Servlet</display-name>
+        <servlet-name>CXFServlet</servlet-name>
+        <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>CXFServlet</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+
