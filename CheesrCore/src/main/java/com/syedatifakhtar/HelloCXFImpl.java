@@ -2,6 +2,9 @@ package main.java.com.syedatifakhtar;
 
 import javax.jws.WebService;
 
+import CheesrCommons.HelloCXF;
+
+
 @WebService
 public class HelloCXFImpl implements HelloCXF{
 

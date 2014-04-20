@@ -1,5 +1,9 @@
 package com.syedatifakhtar.pages;
+import java.net.URL;
 import java.util.Map;
+
+import javax.xml.namespace.QName;
+import javax.xml.ws.Service;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
@@ -9,6 +13,8 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.repeater.RepeatingView;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.spring.injection.annot.SpringBean;
+
+import CheesrCommons.HelloCXF;
 
 import com.syedatifakhtar.BasePage;
 import com.syedatifakhtar.cart.CheesrCart;
@@ -63,6 +69,19 @@ public class CheeseShoppingPage extends BasePage{
 	}
 	
 	private void init() {
+		
+		QName SERVICE_NAME = new QName("http://syedatifakhtar.com.java.main/","HelloCXFImplService");
+		QName PORT_NAME = new QName("http://syedatifakhtar.com.java.main/","HelloCXFImplPort");
+		
+		String WSDL_LOCATION ="http://localhost:9080/CheesrCore/Webservice/Hello?wsdl";
+		try{
+		URL wsdlURL=new URL(WSDL_LOCATION);
+		Service service	=	Service.create(wsdlURL,SERVICE_NAME);
+		HelloCXF port=service.getPort(PORT_NAME,HelloCXF.class);
+		System.out.println("\n\n\n\n\n\n\n\n\nTHE MESSAGE:\n" + port.sayHello() + "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
 		shoppingItemRepeaterContainer	=	new WebMarkupContainer("shoppingItemRepeaterContainer");
 		shoppingItemRepeaterContainer.setOutputMarkupId(true);
 		shoppingItemRepeater	=	new RepeatingView("shoppingItemRepeater");

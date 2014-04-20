@@ -109,7 +109,7 @@
         <ivy:retrieve pattern="${lib.dir}/[conf]/[artifact]-[type]-[revision].[ext]" sync="true"/>
     </target>
     
-    <target name="compile" depends="maybe.generate.code,resolve">
+    <target name="compile" depends="maybe.generate.code">
         <mkdir dir="${build.classes.dir}"/>
         <mkdir dir="${build.src.dir}"/>
 
@@ -117,6 +117,7 @@
             <src path="${build.src.dir}"/>
             <src path="${basedir}/src"/>
             <classpath>
+                <pathelement path="lib/default/CheesrCommons.jar"/>
                 <path refid="cxf.classpath"/>
                 <pathelement path="${thirdparty.classpath}"/>
             </classpath>

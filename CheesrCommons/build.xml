@@ -1,3 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="Cheesr Commons" default="jar" basedir=".">
+    
+    <property name="build.dir" location ="${basedir}/build"/>
+    <property name="build.classes.dir" location ="${build.dir}/classes"/>
+    <property name="build.src.dir" location ="${build.dir}/src"/>
+    <property name="build.var.dir" location ="${build.dir}/var"/>
+    <property name="jar.dir" location ="${basedir}/jar"/>
+    <property name="lib.dir" location="${basedir}/lib" />
+    
+     <mkdir dir="${build.dir}"/>
+    
+    <target name="compile">
+        <mkdir dir="${build.classes.dir}"/>
+        <mkdir dir="${build.src.dir}"/>
+
+        <javac destdir="${build.classes.dir}" debug="true">
+            <src path="${build.src.dir}"/>
+            <src path="${basedir}/src"/>
+        </javac>
+
+        <copy todir="${build.classes.dir}">
+            <fileset dir="${basedir}/src" includes="**/*.xml, **/*.txt" />
+            <fileset dir="${build.src.dir}" includes="**/*.xml, **/*.txt" />
+        </copy>
+    </target>
+    
+    <target name="jar" depends="compile">
+        <mkdir dir="${jar.dir}"/>
+        <jar destfile="${jar.dir}/CheesrCommons.jar" basedir="${build.classes.dir}" >
+        </jar>
+    </target>
+    
 </project>

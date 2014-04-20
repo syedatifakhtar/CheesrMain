@@ -30,5 +30,11 @@
 		    <exclude module="spring-context"/>
 		    <exclude module="stax-ex"/>
 		</dependency>
+		
+		<!-- CXF Dependencies -->
+		<dependency org="org.apache.cxf" name = "cxf-rt-frontend-jaxws" rev="3.0.0-milestone1"/>
+		<dependency org="org.apache.cxf" name = "cxf-rt-transports-http" rev="3.0.0-milestone1"/>
+		<dependency org="org.apache.cxf" name = "cxf-rt-bindings-soap" rev="3.0.0-milestone1"/>
+		<dependency org="org.apache.cxf" name = "cxf-rt-rs-extension-providers" rev="3.0.0-milestone1"/>
 	</dependencies>
 </ivy-module>

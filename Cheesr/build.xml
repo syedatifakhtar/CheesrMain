@@ -14,6 +14,7 @@
     <property name="build.test.classes" value="${build.dir}/test-classes" />
     <property name="build.test.reports" value="${build.dir}/test-reports" />
     <property name="build.reports.dir" value="${build.dir}/reports" />
+    <property name="CheesrCommons.jar.dir" value="X:\Dev\Wicket\Projects\Cheesr\CheesrCommons\jar" />
     
     <!-- Set to your deploy folder -->
     <property name="jboss.dir" value="X:\Dev\jboss-as-7.1.1.Final\jboss-as-7.1.1.Final\standalone\deployments" />
@@ -27,6 +28,7 @@
     
     <target name="clean" description="Imma be cleaning your project">
         <delete dir="${build.dir}" failonerror="false" />
+        <delete dir="${lib.dir}" failonerror="true" />
         <delete file="${final.name}.war" failonerror="false" />
     </target>
     
@@ -40,10 +42,18 @@
         <ivy:retrieve pattern="${lib.dir}/[conf]/[artifact]-[type]-[revision].[ext]" sync="true"/>
     </target>
     
+    <target name="resolveCommonsJar" description="--->Retrievees our external jars ie from other projects">
+        <copy todir="${lib.dir}/default">
+            <fileset dir="${CheesrCommons.jar.dir}">
+                <include name="**/*.*" />
+                <exclude name="**/*.java" />
+            </fileset>
+        </copy>
+    </target>
     <!-- Compiles classes and places them under build/classes -->
-    <target name="compile" depends="init,resolve" description="Compile code">
+    <target name="compile" depends="init,resolve,resolveCommonsJar" description="Compile code">
         <mkdir dir="${build.main.classes}" />
-        <javac destdir="${build.main.classes}" target="1.6" source="1.6" srcdir="${src.main.dir}" classpathref="build.classpath" includeantruntime="false" />
+        <javac destdir="${build.main.classes}" target="1.6" source="1.6" srcdir="${src.main.dir}" classpathref="build.classpath" includeantruntime="false" /> 
         <copy todir="${build.main.classes}">
             <!--Copy properties and other stuff as well,not just classes -->
             <fileset dir="${src.main.dir}">

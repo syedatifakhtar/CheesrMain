@@ -2,7 +2,20 @@
 <project name="Cheesr Core" default="build" basedir=".">
 	<import file="common_build.xml"/>        
     <property name="cxf.war.file.name" value="CheesrCore"/>
+    <property name="build.dir" value="build" />
+    
+        <!-- Set to your deploy folder -->
+    <property name="jboss.dir" value="X:\Dev\jboss-as-7.1.1.Final\jboss-as-7.1.1.Final\standalone\deployments" />
+    
+    
       <target name="war" depends="build">
 	  <cxfwar filename="${cxf.war.file.name}.war" webxml="webapp/WEB-INF/web.xml" />
     </target>
+        <target name="deploy" depends="war" description="Stupidly copies war file to tomcat/jboss deploy folder">
+        <echo>Deploying .war to Jboss</echo>
+        <copy todir="${jboss.dir}">
+            <fileset dir="${build.dir}" includes="${cxf.war.file.name}.war" />
+        </copy>
+    </target>
+    <target name="all" depends="clean,deploy" description="Clean + WAR"/>
 </project>
